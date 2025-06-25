@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int tempVar = 1;
+void generateTAC(char op, char operand1[], char operand2[], char result[]) {
+    printf("%s = %s %c %s\n", result, operand1, op, operand2);
+}
+void parseExpression(char expr[]) {
+    char operand1[10], operand2[10], op;
+    char tempResult[10];
+    int i = 0, j = 0;
+    while (expr[i] != '\0') {
+        if (isdigit(expr[i]) || isalpha(expr[i])) {
+            operand1[j++] = expr[i];
+        } else if (expr[i] == '+' || expr[i] == '-' || expr[i] == '*' || expr[i] == '/') {
+            operand1[j] = '\0';
+            op = expr[i];
+            j = 0;
+            i++;
+            while (isdigit(expr[i]) || isalpha(expr[i])) {
+                operand2[j++] = expr[i];
+                i++;
+            }
+            operand2[j] = '\0';
+            sprintf(tempResult, "t%d", tempVar++);
+            generateTAC(op, operand1, operand2, tempResult);
+            strcpy(operand1, tempResult);
+            j = strlen(operand1);
+            continue;
+        }
+        i++;
+    }
+}
+int main() {
+    char expr[100];
+    printf("Enter an arithmetic expression: ");
+    scanf("%s", expr);
+    printf("Three-Address Code:\n");
+    parseExpression(expr);
+    return 0;
+}
+Output:
+Enter an arithmetic expression: a+b*c
+Three-Address Code:
+t1 = a + b
+t2 = t1 * c
