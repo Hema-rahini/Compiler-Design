@@ -1,0 +1,24 @@
+CFG: 
+S → iEtS / iEtSeS / a 
+E → b
+Code:
+#include <stdio.h>
+#include <string.h>
+int main() 
+{
+    char gram[20], part1[20], part2[20], modifiedGram[20] = "", newGram[20] = "";
+    int i, pos = 0;
+    printf("Enter Production (S->...|...): ");
+    fgets(gram, sizeof(gram), stdin);
+    gram[strcspn(gram, "\n")] = '\0'; 
+    sscanf(gram, "%[^|]|%s", part1, part2);
+    while (part1[pos] && part1[pos] == part2[pos])
+    {
+        modifiedGram[pos] = part1[pos];
+        pos++;
+    }
+    sprintf(modifiedGram + pos, "X");
+    sprintf(newGram, "%s|%s", part1 + pos, part2 + pos);
+    printf("\nS->%s\nX->%s\n", modifiedGram, newGram);
+    return 0;
+}
