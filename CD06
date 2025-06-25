@@ -1,0 +1,45 @@
+CFG: 
+S → (L) / a
+ L → L , S / S
+Code:
+#include <stdio.h>
+#include <string.h>
+#define SIZE 10
+int main() 
+{
+    int num;
+    char production[SIZE][SIZE], non_terminal, alpha, beta;
+    printf("Enter number of productions: ");
+    scanf("%d", &num);
+    printf("Enter the grammar (e.g., E->E-A):\n");
+    for (int i = 0; i < num; i++)
+        scanf("%s", production[i]);
+    for (int i = 0; i < num; i++) {
+        printf("\nGRAMMAR: %s", production[i]);
+        non_terminal = production[i][0];
+        if (non_terminal == production[i][3])
+        {  
+            alpha = production[i][4];
+            printf(" is left recursive.\n");
+            int index = 3;
+            while (production[i][index] && production[i][index] != '|')
+                index++;
+            if (production[i][index]) 
+            {
+                beta = production[i][index + 1];
+                printf("Grammar without left recursion:\n");
+                printf("%c->%c%c'\n", non_terminal, beta, non_terminal);
+                printf("%c'->%c%c'|E\n", non_terminal, alpha, non_terminal);
+            } 
+            else
+            {
+                printf(" can't be reduced\n");
+            }
+        }
+        else
+        {
+            printf(" is not left recursive.\n");
+        }
+    }
+    return 0;
+}
