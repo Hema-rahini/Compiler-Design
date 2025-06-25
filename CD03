@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char s[5];
+    printf("\nEnter any operator: ");
+    fgets(s, sizeof(s), stdin);
+    if (s[strlen(s) - 1] == '\n') 
+        s[strlen(s) - 1] = '\0';
+    switch (s[0]) 
+    {
+        case '>':  
+            printf(s[1] == '=' ? "\nGreater than or equal" : "\nGreater than");
+            break;
+        case '<':  
+            printf(s[1] == '=' ? "\nLess than or equal" : "\nLess than");
+            break;
+        case '=':  
+            printf(s[1] == '=' ? "\nEqual to" : "\nAssignment");
+            break;
+        case '!':  
+            printf(s[1] == '=' ? "\nNot Equal" : "\nBit Not");
+            break;
+        case '&':  
+            printf(s[1] == '&' ? "\nLogical AND" : "\nBitwise AND");
+            break;
+        case '|':  
+            printf(s[1] == '|' ? "\nLogical OR" : "\nBitwise OR");
+            break;
+        case '+':  
+            printf("\nAddition");
+            break;
+        case '-':  
+            printf("\nSubtraction");
+            break;
+        case '*':  
+            printf("\nMultiplication");
+            break;
+        case '/':  
+            printf("\nDivision");
+            break;
+        case '%':  
+            printf("\nModulus");
+            break;
+        default:  
+            printf("\nNot an operator");
+    }
+    return 0;
+}
